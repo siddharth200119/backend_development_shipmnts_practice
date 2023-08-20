@@ -31,6 +31,10 @@ const test = new Test({
 
 test.save();
 
+// close the connection
+
+// mongoose.connection.close();
+
 //port for server
 
 let port = process.env.PORT;
@@ -46,4 +50,11 @@ app.listen(port, function (){
 
 app.get("/", function(req, res){
     res.render("home", {appTitle: "hello tffhere"});
+})
+
+// need to use async and await for mongodb getting data
+
+app.get("/api/data", async function(req, res){
+    const data = await Test.find()
+    res.send({"data": data});
 })
